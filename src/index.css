@@ -39,3 +39,15 @@ select{
     min-width: 106px;
     width: auto;
 }
+@media (max-width: 767px){
+    .container{
+        width: 100%;
+        margin-left: 0;
+    }
+}
+@media (min-width: 768px) and (max-width: 1217px){
+    .container{
+        width: 60%;
+        margin-left: 20%;
+    }
+}
