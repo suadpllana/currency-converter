@@ -36,8 +36,8 @@ select{
     bottom: 0;
     
     height: 100%;
-    min-width: 106px;
-    width: auto;
+    
+    width: 150px;
 }
 @media (max-width: 767px){
     .container{
