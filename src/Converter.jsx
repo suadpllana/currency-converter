@@ -1,67 +1,74 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./names.js";
-import { currencyNameData } from "./names.js";
+import { currencyNameData } from "./names.js"; 
 
 const Converter = () => {
-  const [currencyData, setCurrencyData] = useState({});
-  const [amountData, setAmountData] = useState(0);
+  const [currencyData, setCurrencyData] = useState(null);
+  const [currencyType, setCurrencyType] = useState("");
+  const [currencyType2, setCurrencyType2] = useState("");
   const amount = useRef(null);
   const selectValue = useRef(null);
-  const result = useRef(null);
-  const apiKey = import.meta.env.VITE_API_KEY
+  const selectValue2 = useRef(null);
+  const resultConversion = useRef(null);
+  const apiKey = import.meta.env.VITE_API_KEY;
+
+
   async function getData() {
-    try{
-        const url = `https://api.exchangeratesapi.io/v1/latest?access_key=${apiKey}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setCurrencyData(data.rates);
-    }
-  
-    catch(err){
-        alert("something went wrong")
-        return;
-    }
-  }
-
-  function convertCurrency() {
-    const selectedCurrency = selectValue.current.value;
     const inputAmount = parseFloat(amount.current.value) || 0; 
+    if (inputAmount === 0 || !currencyType) {
+      resultConversion.current.value = "";
+      return;
+    }
 
-    if (currencyData[selectedCurrency] && inputAmount) {
-      const convertedValue = inputAmount * currencyData[selectedCurrency];
-      setAmountData(convertedValue);
-      result.current.value = convertedValue.toFixed(2);
-    } else {
-      result.current.value = "Invalid currency or amount";
+    try {
+      const url = `https://currency-converter18.p.rapidapi.com/api/v1/convert?from=${currencyType2}&to=${currencyType}&amount=${inputAmount}`;
+      const options = {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": apiKey,
+          "x-rapidapi-host": "currency-converter18.p.rapidapi.com",
+        },
+      };
+
+      const response = await fetch(url, options);
+      const result = await response.json();
+      setCurrencyData(result); 
+
+    } catch (error) {
+      console.error("Error fetching currency data:", error);
     }
   }
+
+
+  useEffect(() => {
+    if (currencyData && currencyData.result) {
+      resultConversion.current.value = currencyData.result.convertedAmount.toFixed(2);
+    }
+  }, [currencyData]);
+
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [currencyType]);
 
   return (
     <div>
-      <h1>Convert Euro to other currencies</h1>
+      <h1>Convert currencies</h1>
       <div className="container">
         <div>
-          <input
-            ref={amount}
-            type="number"
-            placeholder="Amount in Euro"
-            onChange={convertCurrency} 
-          />
-         
+          <input ref={amount} type="number" placeholder="First currency" onChange={getData} />
+          <select onChange={() => setCurrencyType2(selectValue2.current.value)} ref={selectValue2}>
+            <option value="">Select a currency</option>
+            {currencyNameData.map((currency, index) => (
+              <option key={index} value={currency.code}>
+                {currency.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>
-          <input
-            ref={result}
-            type="text"
-            placeholder="Converted amount"
-            readOnly
-          />
-           <select onChange={convertCurrency} ref={selectValue}>
+          <input ref={resultConversion} type="text" placeholder="Converted amount" readOnly onChange={getData} />
+          <select onChange={() => setCurrencyType(selectValue.current.value)} ref={selectValue}>
             <option value="">Select a currency</option>
             {currencyNameData.map((currency, index) => (
               <option key={index} value={currency.code}>
