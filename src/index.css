@@ -1,6 +1,9 @@
 body{
     text-align: center;
     font-family: cursive, Arial, Helvetica, sans-serif;
+    background-image: url(./assets/image.png);
+    background-size: cover;
+    color: white;
 }
 
 @media (max-width: 767px){
