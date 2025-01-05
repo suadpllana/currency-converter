@@ -40,6 +40,13 @@ cursor: pointer;
 }
 
 @media (max-width: 767px){
+    .crypto{
+        width: 100%;
+        margin-left: 0;
+    }
+    .factsContainer{
+        grid-template-columns: 1fr;
+    }
     body{
         font-family: Arial, Helvetica, sans-serif;
     }
@@ -47,6 +54,13 @@ cursor: pointer;
 @media (min-width: 768px) and (max-width: 1217px){
     body{
         font-family: Arial, Helvetica, sans-serif;
+    }
+    .crypto{
+        width: 60%;
+        margin-left: 20%;
+    }
+    .factsContainer{
+        grid-template-columns: 1fr 1fr;
     }
 }
 
