@@ -1,13 +1,15 @@
 body{
     text-align: center;
     font-family: cursive, Arial, Helvetica, sans-serif;
-    background-image: url(./assets/image.png);
+    background-color: lightgray;
     background-size: cover;
-    color: white;
+    color: black
 }
 .crypto{
-    background-color: blue;
+    background-color: white;
     width: 50%;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+
     margin-left: 25%;
     border-radius: 100px;
 }
@@ -37,6 +39,9 @@ body{
     background-color: cornflowerblue;
     border: none;
 cursor: pointer;
+}
+.usd-to-crypto-input{
+    margin-top: 2rem;
 }
 
 @media (max-width: 767px){

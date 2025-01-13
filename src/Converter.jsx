@@ -106,7 +106,7 @@ const Converter = () => {
       <h1 className="text-center mb-4">Convert currencies</h1>
       <div className="row justify-content-center">
         <div className="col-md-5 col-sm-10 col-12">
-          <div className="change bg-primary rounded-3 text-center p-3">
+          <div className="change bg-white shadow-md rounded-3 text-center p-3">
             <div className="input-group mb-3">
               <input
                 type="number"
@@ -156,7 +156,7 @@ const Converter = () => {
 
                 <h1 className="mt-5">USD to bitcoin converter</h1>
       <div className="crypto">
-        <input ref={usdAmount} type="number" placeholder="USD amount" /><br /><br />
+        <input ref={usdAmount} type="number" className="usd-to-crypto-input" placeholder="USD amount" /><br /><br />
      
         
         <select ref={cryptoValue} name="" id="">
