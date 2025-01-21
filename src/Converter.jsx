@@ -9,12 +9,17 @@ const Converter = () => {
   const selectValue = useRef(null);
   const selectValue2 = useRef(null);
   const resultConversion = useRef(null);
-  const apiKey = import.meta.env.VITE_API_KEY;
+
   const cryptoValue = useRef(null)
   const [cryptoData , setCryptoData] = useState("")
   const [cryptos, setCryptos] = useState([])
   const usdAmount = useRef(null)
 
+
+  const apiKey = import.meta.env.VITE_API_KEY;
+
+
+  
   async function getData() {
     const inputAmount = parseFloat(amount.current.value) || 0; 
     if (inputAmount === 0 || !currencyType) {
@@ -59,7 +64,7 @@ const Converter = () => {
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': '5746b3ee16msh8ad6ef3a1df473fp1850acjsn64a08673d84a',
+      'x-rapidapi-key':apiKey,
       'x-rapidapi-host': 'fast-price-exchange-rates.p.rapidapi.com'
     }
   };
@@ -170,8 +175,8 @@ const Converter = () => {
 
       <h1 className="curr">Currency fun facts</h1>
       <div className="factsContainer">
-        {facts.map((fact) => (
-          <div>
+        {facts.map((fact, index) => (
+          <div key={index}>
             <p>{fact}</p>
           </div>
         ))}
